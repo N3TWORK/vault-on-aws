@@ -1,9 +1,9 @@
+.idea
 .terraform
-terraform.tfstate
-terraform.tfstate.backup
-terraform.tfvars
+# .tfstate backup
+**.tfstate.*
 todos.md
 .DS_Store
 files/user_data_compiled.sh
 tmp/
-temp/
+temp/vault_creds_*
