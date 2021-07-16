@@ -41,16 +41,16 @@ chown -R vault:vault /opt/vault
 curl https://keybase.io/hashicorp/pgp_keys.asc | gpg --import
 
 # Download vault and signatures
-curl -Os https://releases.hashicorp.com/vault/1.4.0/vault_1.4.0_linux_amd64.zip
-curl -Os https://releases.hashicorp.com/vault/1.4.0/vault_1.4.0_SHA256SUMS
-curl -Os https://releases.hashicorp.com/vault/1.4.0/vault_1.4.0_SHA256SUMS.sig
+curl -Os https://releases.hashicorp.com/vault/1.7.1/vault_1.7.1_linux_amd64.zip
+curl -Os https://releases.hashicorp.com/vault/1.7.1/vault_1.7.1_SHA256SUMS
+curl -Os https://releases.hashicorp.com/vault/1.7.1/vault_1.7.1_SHA256SUMS.sig
 
 # Verify Signatres
-gpg --verify vault_1.4.0_SHA256SUMS.sig vault_1.4.0_SHA256SUMS
-cat vault_1.4.0_SHA256SUMS | grep vault_1.4.0_linux_amd64.zip | sha256sum -c
+gpg --verify vault_1.7.1_SHA256SUMS.sig vault_1.7.1_SHA256SUMS
+cat vault_1.7.1_SHA256SUMS | grep vault_1.7.1_linux_amd64.zip | sha256sum -c
 
 # unzip and move to /opt/vault/bin
-unzip vault_1.4.0_linux_amd64.zip
+unzip vault_1.7.1_linux_amd64.zip
 mv vault /opt/vault/bin
 
 # give ownership to the vault user
@@ -63,9 +63,9 @@ ln -s /opt/vault/bin/vault /usr/local/bin/vault
 setcap cap_ipc_lock=+ep /opt/vault/bin/vault
 
 # cleanup files
-rm vault_1.4.0_linux_amd64.zip
-rm vault_1.4.0_SHA256SUMS
-rm vault_1.4.0_SHA256SUMS.sig
+rm vault_1.7.1_linux_amd64.zip
+rm vault_1.7.1_SHA256SUMS
+rm vault_1.7.1_SHA256SUMS.sig
 
 --==BOUNDARY==
 Content-Type: text/x-shellscript; charset="us-ascii"
