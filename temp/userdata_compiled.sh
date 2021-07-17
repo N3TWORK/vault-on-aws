@@ -133,7 +133,7 @@ cluster_addr = "https://INSTANCE_IP_ADDR:8201"
 # Auto unseal the vault
 seal "awskms" {
   region = "us-east-1"
-  kms_key_id = "9c02f9e2-76a9-4469-acbe-4e065015aecf"
+  kms_key_id = "4a6fc9ba-6ad1-4c6e-ad45-6c6c8d207538"
 }
 
 # Listener for loopback
@@ -244,10 +244,10 @@ function initialize_vault {
   vault operator init > vault_credentials.txt
 
   # encrypt it with the KMS key
-  aws kms encrypt --key-id 9c02f9e2-76a9-4469-acbe-4e065015aecf --plaintext fileb://vault_credentials.txt --output text --query CiphertextBlob | base64 --decode > vault_creds_encrypted
+  aws kms encrypt --key-id 4a6fc9ba-6ad1-4c6e-ad45-6c6c8d207538 --plaintext fileb://vault_credentials.txt --output text --query CiphertextBlob | base64 --decode > vault_creds_encrypted
 
   # send the encrypted file to the s3 bucket
-  aws s3 cp vault_creds_encrypted s3://vault-deployment-20210628224656636200000002/
+  aws s3 cp vault_creds_encrypted s3://vault-deployment-20210716194421673300000002/
 
   # cleanup
   rm vault_credentials.txt
