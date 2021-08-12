@@ -1,3 +1,7 @@
+
+
+# Script for obtaining root token and recovery keys
+```
 #!/bin/bash
 
 # This grabs the encrypted credentials file and decrypts it.
@@ -10,3 +14,4 @@ echo "Vault crednetials decrypted.  Find them at ./temp/vault_creds_decrypted"
 echo "----"
 echo "Load Balancer DNS Name: vault-2021071619445251320000000f-1921562087.us-east-1.elb.amazonaws.com"
 echo ""
+```
