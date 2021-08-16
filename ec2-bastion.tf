@@ -8,7 +8,7 @@ resource "aws_instance" "bastion" {
   instance_type = "t2.micro"
   key_name = var.ec2_key_pair_name
   vpc_security_group_ids = [aws_security_group.bastion.id]
-  subnet_id = aws_subnet.public[0].id
+  subnet_id = tolist(data.aws_subnet_ids.public.ids)[0]
   associate_public_ip_address = true
 
   tags = merge(

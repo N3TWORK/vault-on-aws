@@ -4,7 +4,7 @@
 resource "aws_security_group" "load_balancer" {
   name_prefix = "${var.main_project_tag}-alb-sg"
   description = "Firewall for the application load balancer fronting the vault instances."
-  vpc_id = aws_vpc.vault.id
+  vpc_id = data.aws_vpc.vault.id
   tags = merge(
     { "Name" = "${var.main_project_tag}-alb-sg" },
     { "Project" = var.main_project_tag }
@@ -52,7 +52,7 @@ resource "aws_security_group_rule" "load_balancer_allow_outbound" {
 resource "aws_security_group" "vault_instance" {
   name_prefix = "${var.main_project_tag}-vault-instance-sg"
   description = "Firewall for the vault instances."
-  vpc_id = aws_vpc.vault.id
+  vpc_id = data.aws_vpc.vault.id
   tags = merge(
     { "Name" = "${var.main_project_tag}-vault-instance-sg" },
     { "Project" = var.main_project_tag }
@@ -104,7 +104,7 @@ resource "aws_security_group_rule" "vault_instance_allow_outbound" {
 resource "aws_security_group" "bastion" {
   name_prefix = "${var.main_project_tag}-bastion-sg"
   description = "Firewall for the operator bastion instance"
-  vpc_id = aws_vpc.vault.id
+  vpc_id = data.aws_vpc.vault.id
   tags = merge(
     { "Name" = "${var.main_project_tag}-bastion-sg" },
     { "Project" = var.main_project_tag }
@@ -138,7 +138,7 @@ resource "aws_security_group_rule" "bastion_allow_outbound" {
 resource "aws_security_group" "kms_endpoint" {
   name_prefix = "${var.main_project_tag}-kms-endpoint-sg"
   description = "Firewall for the KMS Endpoint."
-  vpc_id = aws_vpc.vault.id
+  vpc_id = data.aws_vpc.vault.id
   tags = merge(
     { "Name" = "${var.main_project_tag}-kms-endpoint-sg" },
     { "Project" = var.main_project_tag }

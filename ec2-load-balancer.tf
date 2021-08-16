@@ -14,9 +14,9 @@ resource "aws_lb" "alb" {
   internal = var.private_mode
   load_balancer_type = "application"
   security_groups = [aws_security_group.load_balancer.id]
-  subnets = aws_subnet.public.*.id
+  subnets = data.aws_subnet_ids.public.ids
   idle_timeout = 60
-  ip_address_type = var.private_mode ? "ipv4" : "dualstack"
+  ip_address_type = "ipv4" # we only use ipv4 : var.private_mode ? "ipv4" : "dualstack"
 
   tags = merge(
     { "Name" = "${var.main_project_tag}-alb"},
@@ -29,7 +29,7 @@ resource "aws_lb_target_group" "alb_targets" {
   name_prefix = "vault-"
   port = 8200
   protocol = "HTTPS"
-  vpc_id = aws_vpc.vault.id
+  vpc_id = data.aws_vpc.vault.id
   deregistration_delay = 30
   target_type = "instance"
 

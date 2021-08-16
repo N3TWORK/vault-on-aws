@@ -173,3 +173,9 @@ variable "kms_tags" {
   type = map(string)
   default = {}
 }
+
+# VPC id
+variable vpc_id {
+  description = "The main vpc id"
+  type = string
+}

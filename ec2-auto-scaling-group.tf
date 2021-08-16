@@ -16,7 +16,7 @@ resource "aws_autoscaling_group" "vault-asg" {
   max_size = var.vault_instance_count
 
   # AKA the subnets to launch resources in 
-  vpc_zone_identifier = aws_subnet.private.*.id
+  vpc_zone_identifier = data.aws_subnet_ids.private.ids
 
   health_check_grace_period = 300
   health_check_type = "EC2"
