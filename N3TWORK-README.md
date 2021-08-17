@@ -1,17 +1,11 @@
+# N3TWORK Customizations
 
+All instances of Vault (stage and prod) are deployed in their own dedicated AWS account.
 
-# Script for obtaining root token and recovery keys
-```
-#!/bin/bash
+Vault provisioning is controlled by Terraform and the scripts are located in [https://github.com/N3TWORK/vault-on-aws](https://github.com/N3TWORK/vault-on-aws)
 
-# This grabs the encrypted credentials file and decrypts it.
+This repository is a fork from an open source repo, [https://github.com/jcolemorrison/vault-on-aws](https://github.com/jcolemorrison/vault-on-aws) with some changes made. Please refer to the documentation that came with the repo to understand the architecture.
 
-aws --profile vault --region us-east-1 s3 cp s3://vault-deployment-20210716194421673300000002/vault_creds_encrypted ./temp/vault_creds_encrypted
-aws --profile vault --region us-east-1 kms decrypt --key-id 4a6fc9ba-6ad1-4c6e-ad45-6c6c8d207538 --ciphertext-blob fileb://temp/vault_creds_encrypted --output text --query Plaintext | base64 --decode > ./temp/vault_creds_decrypted
+The first major change is the terraforming for the VPC and subnets have been disabled and instead the terraform files use a data provider referring to the existing manually provisioned VPC and subnets. The VPC contains two public subnets tagged "visibility:public" and two private subnets tagged "visibility:private". These tags are used by the terraform scripts to import the subnets as data providers.
 
-echo ""
-echo "Vault crednetials decrypted.  Find them at ./temp/vault_creds_decrypted"
-echo "----"
-echo "Load Balancer DNS Name: vault-2021071619445251320000000f-1921562087.us-east-1.elb.amazonaws.com"
-echo ""
-```
+The second change to the forked repo is that terraform must be run from the `environment_state/<env>` directory, which contains a single terraform script for each environment (e.g stage or prod) that imports the base directory as a module. This allows terraform scripts to be used for provisioning different environment instances within the same AWS account. This environment specific terraform script also supplies the overridden variables for customization.
